@@ -18,8 +18,10 @@ for (op, ar) in opt:
     else:
         print("Opcion invalida")
 
+
 proceso = sp.Popen([comando], stdout=archivo_salida, stderr=sp.PIPE, shell=True, universal_newlines=True)
 error = proceso.communicate()[1]
+
 
 if not error:
     fecha = dt.datatime.now()
