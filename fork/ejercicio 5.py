@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import os
 
-procesos = int(input("Ingrese la cantidad de procesos hijos que va a generar: "))
+procesos = int(input("Ingrese la cantidad de procesos hijos que va a generar:"))
 
 
 def hijo():
