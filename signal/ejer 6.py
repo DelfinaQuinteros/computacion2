@@ -1,28 +1,47 @@
-#!/usr/bin/python3
-import signal
-import os
+#!/usr/bin/python
 import time
+import os
+import signal
 
 
-def padre():
-    os.kill(hijo_2, signal.SIGUSR1)
+def handler_chld2(signal, frame):
+    print("Soy el hijo2 con PID:", os.getpid(), "\nPONG")
 
 
-def hijo():
-    print("Soy el hijo 2 con PID:", os.getpid(), "pong")
+def handler_USR1(signal, frame):
+    pass
 
 
-fork = os.fork()
-if fork == 0:
-    time.sleep(0.1)
-    for i in range(10):
-        print("Soy el hijo 1 con PID:", os.getpid(), "ping")
-        os.kill(os.getppid(), signal.SIGUSR1)
-        time.sleep(5)
-else:
-    signal.signal(signal.SIGUSR1, padre)
-    hijo_2 = os.fork()
-    if hijo_2 == 0:
-        signal.signal(signal.SIGUSR1, hijo)
-while True:
-    signal.pause()
+def send_signal(pid):
+    os.kill(pid, signal.SIGUSR1)
+
+
+def main():
+    signal.signal(signal.SIGUSR1, handler_USR1)
+
+    pid1 = os.fork()
+
+    if pid1:
+        pid2 = os.fork()
+        if pid2:
+            while True:
+                signal.pause()
+                send_signal(pid2)
+        else:
+            signal.signal(signal.SIGUSR1, handler_chld2)
+            while True:
+                signal.pause()
+    else:
+        # HIJO 1
+        for i in range(10):
+            print("\n")
+            ppid = os.getppid()
+            send_signal(ppid)
+            print("Soy el hijo1 con PID:", os.getpid(), "\nPING")
+            time.sleep(5)
+        print("TERMINANDO.")
+        os.kill(pid1, signal.SIGTERM)
+
+
+if __name__ == '__main__':
+    main()
