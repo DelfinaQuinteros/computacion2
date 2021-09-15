@@ -11,6 +11,7 @@ clientesocket, addr = ss.accept()
 
 while True:
     data = clientesocket.recv(1024)
+    msg = data.decode("utf-8")
     if data.decode('ascii') == 'exit':
         clientesocket.send('Terminado'.encode('ascii'))
         break
@@ -23,5 +24,5 @@ while True:
     elif stderr != "":
         msg = "ERROR\n"+stderr
 
-    clientesocket.send(msg.encode())
+    clientesocket.send(msg.encode("utf-8"))
 
