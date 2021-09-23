@@ -31,7 +31,6 @@ def PIPE_reader(b):
 
 
 def main():
-    print("-----------------------------------")
     print("iniciando el programa")
     print("-----------------------------------")
     b, a = os.pipe()
