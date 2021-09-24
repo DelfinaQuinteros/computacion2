@@ -3,27 +3,26 @@ import socket
 import sys
 import getopt
 
-(opt, arg) = getopt.getopt(sys.argv[1:], 'a:p:')
+(opt, arg) = getopt.getopt(sys.argv[1:], 'a:p:', [])
 for (op, ar) in opt:
     if op in '-a':
         host = ar
     elif op == '-p':
-        port = ar
+        port = int(ar)
     else:
         print("Opcion invalida")
+        sys.exit(1)
 
 try:
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 except socket.error:
     print('Failed to create socket')
-    sys.exit()
-
-sys.exit()
+    sys.exit(2)
 s.connect((host, port))
 
-while 1:
-    msg = input('Ingrese el mensaje: ')
-    s.send(msg.encode('ascii'))
-    msg = s.recv(1024)
-    print('Server reply : ' + msg.decode("ascii"))
 
+msg = input('Ingrese una cadena de texto: ')
+s.send(msg.encode('utf8'))
+msg = s.recv(1024)
+print('Server reply : ' + msg.decode("utf8"))
+s.close()

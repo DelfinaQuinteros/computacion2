@@ -11,15 +11,15 @@ for (op, ar) in opt:
         print("Opcion invalida")
 
 
-serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+ss = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 host = ""
-serversocket.bind((host, port))
-serversocket.listen(5)
+ss.bind((host, port))
+ss.listen(5)
 print("Esperando conexiones")
-clientsocket, addr = serversocket.accept()
+clientsocket, addr = ss.accept()
 
-while True:
-    data = clientsocket.recv(1024)
-    print("Address: %s " % str(addr))
-    print("Recibido: "+data.decode("ascii").upper())
+data = clientsocket.recv(1024)
+clientsocket.close()
+print("Address: %s " % str(addr))
+print("Recibido: "+data.decode("utf8").upper())
 
