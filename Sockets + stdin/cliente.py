@@ -60,6 +60,7 @@ def main():
             protocol = args
         if opts == '-a':
             host = args
+
     socketStructure(host, port, protocol)
 
 

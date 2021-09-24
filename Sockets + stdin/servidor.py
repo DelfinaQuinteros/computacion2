@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import getopt
 import socket
 import sys
@@ -15,9 +16,9 @@ def main():
     opciones = get_op()
     for (opcion, arg) in opciones:
         if opcion == '-p':
-            port = arg
+            port = int(arg)
         if opcion == '-t':
-            protocol = arg
+            protocol = str(arg)
         if opcion == '-f':
             pathfile = arg
 
@@ -25,7 +26,6 @@ def main():
         port = port
         protocol = protocol
         file = pathfile
-
         if protocol == 'tcp' or protocol == 'TCP':
             print("Protocolo TCP seleccionado")
             ss = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -34,7 +34,6 @@ def main():
             ss.listen(5)
             print("-----Server listening-----")
             clientesocket, addr = ss.accept()
-
             while True:
                 f = open(file, "a")
                 d = clientesocket.recv(1024)
@@ -44,21 +43,18 @@ def main():
                     break
                 print("Direccion: %s" % str(addr))
                 print("Recibido correctamente:" + d.decode('ascii'))
-
         elif protocol == 'udp' or protocol == 'UDP':
             print("Protocolo UDP seleccionado")
             ss = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             host = ""
             ss.bind((host, port))
             print("-----Server listening-----")
-
             while True:
                 f = open(file, "a")
                 d, addr = ss.recvfrom(1024)
                 f.write(d.decode("ascii") + "\n")
                 address = addr[0]
                 port = addr[1]
-
                 if d == "" or len(d) == 0:
                     print("Saliendo")
                     break
@@ -68,10 +64,7 @@ def main():
         else:
             print("No se ha podido reconocer el protocolo, por favor ingrese 'UDP' o 'TCP'")
 
-    socket_structure(port, protocol, pathfile)
+            socket_structure(port, protocol, pathfile)
 
 
 main()
-
-
-
