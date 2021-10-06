@@ -1,11 +1,12 @@
-import subprocess, socket, getopt, sys
-import multiprocessing as mp
+import socket
+import subprocess
+import sys
 
 #ss = serversocket
 ss = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-ss.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR, 1)
+ss.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 host = ""
-port = int(sys.argv[1])
+port = 8000
 ss.bind((host, port))
 ss.listen(5)
 print("----------Server listening----------")
