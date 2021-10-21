@@ -3,7 +3,7 @@ import multiprocessing as mp
 
 #ss = serversocket
 ss = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-ss.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR, 1)
+ss.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 host = ""
 port = int(sys.argv[1])
 ss.bind((host, port))
