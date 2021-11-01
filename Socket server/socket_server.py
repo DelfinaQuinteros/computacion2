@@ -9,8 +9,8 @@ import sys
 
 
 class MyTCPHandler(socketserver.BaseRequestHandler):
-
     def handle(self):
+        print("-------------Iniciando------------")
         while True:
             data = self.request.recv(1024)
             msg = data.decode("ascii")
@@ -33,7 +33,7 @@ class ForkedTCPServer(socketserver.ForkingMixIn, socketserver.TCPServer):
 def main():
     (opt, arg) = getopt.getopt(sys.argv[1:], 'm:')
     for (op, ar) in opt:
-        if op == ['m']:
+        if op == '-m':
             opcion = ar
         else:
             sys.exit(1)
@@ -56,6 +56,7 @@ def main():
         sock, addr = cliente
         print("Server loop running in thread:", th.getName())
     print("..............servidor escuchando.............")
+    ss = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     while True:
         msg = input("Ingrese un mensaje: ")
