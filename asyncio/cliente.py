@@ -11,7 +11,7 @@ async def main():
     try:
         reader, writer = await asyncio.open_connection('127.0.0.1', 8888)
     except socket.error:
-        print("No se ha podido crear el socket")
+        print("No se ha podido conectar")
         sys.exit()
     print("----------Comando prompt----------")
     comando = ""
