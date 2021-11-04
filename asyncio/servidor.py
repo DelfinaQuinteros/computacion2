@@ -1,7 +1,6 @@
 #!/usr/bin/python3
-import subprocess, socket
 import asyncio
-import socket
+import subprocess
 
 
 async def servidor(reader, writer):
@@ -17,9 +16,9 @@ async def servidor(reader, writer):
     resultado = subprocess.Popen([data], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     stdout, stderr = resultado.communicate()
     if stdout != "":
-        msg = "OK\n" + stdout
+        message = "OK\n" + stdout
     elif stderr != "":
-        msg = "ERROR\n" + stderr
+        message = "ERROR\n" + stderr
         writer.write(message.encode("ascii"))
     await writer.drain()
 
@@ -33,6 +32,6 @@ async def main():
 
 
 if __name__ == "__main__":
-    print("-------------servidor escuchando------------------")
+    print("------------------servidor escuchando------------------")
     asyncio.run(main())
 
