@@ -3,11 +3,32 @@ import getopt
 import multiprocessing as mp
 import socket
 import sys
-import tasks
+from tasks import suma, resta, mult, div, pot
 
 
-def child():
-    pass
+def child(cliente):
+    con, addr = cliente
+    print("addr", addr)
+    data = con.recv(1024)
+    print(f"Operador: {data[0]}, operando 1: {data[1]}, oerando 2: {data[2]},")
+    operator = data[0]
+    n = data[1]
+    m = data[2]
+    if operator == 'suma':
+        res = suma.delay(n, m)
+    elif operator == 'resta':
+        res = resta.delay(n, m)
+    elif operator == 'mult':
+        res = mult.delay(n, m)
+    elif operator == 'pot':
+        res = pot.delay(n, m)
+    elif operator == 'div':
+        res = div.delay(n, m)
+
+    response = res.get(timeout=10)
+    print("Respuesta", response)
+    con.send(response)
+    con.close()
 
 
 if __name__ == '__main__':

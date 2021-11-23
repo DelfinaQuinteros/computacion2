@@ -27,9 +27,16 @@ for (op, ar) in opt:
         sys.exit(1)
 
 try:
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    ss = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 except socket.error:
     print('Failed to create socket')
     sys.exit(2)
 
-s.connect((host, port))
+host = "0.0.0.0"
+port = 8000
+ss.connect((host, port))
+msg = ss.recv(1024)
+print(msg)
+ss.send(msg.encode('utf8'))
+data = ss.recv(1024)
+print("Resultado", data)

@@ -1,9 +1,6 @@
 #!/usr/bin/python3
-
 import array
 import os
-
-import cv2
 
 
 def azul(ruta):
@@ -14,6 +11,7 @@ def azul(ruta):
     width = int(cabecera_split[1].split()[0])
     height = int(cabecera_split[1].split()[1])
     max_value = int(cabecera_split[2])
+    # centerY, centerX = height//2, width//2
 
     ppm_header = p_image + ' ' + str(width) + ' ' + str(height) + ' ' + str(max_value) + "\n"
     imorig = os.read(fd, width*height*3)
@@ -42,4 +40,10 @@ azul('img/ppal-gatos')
     cv2.imshow('img', img)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
+    
+    
+        for i in range(image//2):
+        for j in range(i, image-1-i):
+            image[i][j], image[j][n - 1 - i], image[n - 1 - i][n - 1 - j], image[n - 1 - j][i] = \
+                image[n - 1 - j][i], image[i][j], image[j][n - 1 - i], image[n - 1 - i][n - 1 - j]
 """
