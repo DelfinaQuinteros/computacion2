@@ -1,7 +1,8 @@
 #!/usr/bin/python3
-
 import array
 import os
+
+import cv2
 
 
 def verde(ruta):
@@ -30,5 +31,17 @@ def verde(ruta):
     image.tofile(f)
 
 
-ruta = input("ingrese la ruta de la imagen")
-verde(ruta)
+"""ruta = input("ingrese la ruta de la imagen")
+verde(f'{ruta}')"""
+
+
+def green():
+    image = cv2.imread('img/ppal-gatos.ppm')
+    matriz = image
+    n = len(matriz)
+    cv2.imshow('img', image[::-1])
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+green()
+

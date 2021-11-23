@@ -28,8 +28,8 @@ def azul(ruta):
     image.tofile(f)
 
 
-# ruta = input("ingrese la ruta de la imagen")
-azul('img/ppal-gatos')
+ruta = input("ingrese la ruta de la imagen")
+azul(f'{ruta}')
 
 
 

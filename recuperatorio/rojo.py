@@ -4,24 +4,6 @@ import os
 import cv2
 import numpy as np
 
-"""
-img = cv2.imread('img/adblock.ppm')
-print(img)
-
-B, G, R = cv2.split(img)
-
-unir = cv2.merge([B, G, R])
-
-cv2.imshow('Ima', R)
-cv2.imshow('Imagen', unir)
-
-print(img.shape[:2])
-negra = np.zeros(img.shape[:2], dtype='uint8')
-cv2.imshow('Imag', cv2.merge([negra, negra, R]))
-cv2.waitKey(0)
-"""
-
-
 def rojo(ruta):
     fd = os.open(ruta + ".ppm", os.O_RDONLY)
     cabecera = os.read(fd, 16)
@@ -48,4 +30,4 @@ def rojo(ruta):
 
 
 ruta = input("ingrese la ruta de la imagen")
-rojo(ruta)
+rojo(f'{ruta}')
