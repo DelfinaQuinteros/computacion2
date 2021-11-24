@@ -29,7 +29,7 @@ class Rojo:
         f.write(bytearray(ppm_header, 'ascii'))
         image.tofile(f)
         imagen = cv2.imread(ruta+'rojo.ppm')
-        M = cv2.getRotationMatrix2D((width // 2, height // 2), -90, 1)
+        M = cv2.getRotationMatrix2D((width // 2, height // 2), 90, 1)
         img = cv2.warpAffine(imagen, M, (width, height))
         cv2.imshow('img', img)
         cv2.waitKey(0)
